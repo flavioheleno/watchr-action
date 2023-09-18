@@ -13,19 +13,25 @@ inputs:
   domain:
     description: 'The domain name to be checked (root domain for "check:domain" or FQDN for "check:certificate")'
     required: true
-  expiration_threshold: 'Number of days left to domain or certificate expiration that will trigger an error'
+  expiration_threshold:
+    description: 'Number of days left to domain or certificate expiration that will trigger an error'
     required: false
     default: 5
-  registrar_name: 'Match the domain Registrar Name (for "check:domain")'
+  registrar_name:
+    description: 'Match the domain Registrar Name (for "check:domain")'
     required: false
-  status_codes: 'List of Extensible Provisioning Protocol (EPP) status codes that should be active (CSV format)'
+  status_codes:
+    description: 'List of Extensible Provisioning Protocol (EPP) status codes that should be active (CSV format)'
     required: false
     default: 'clientTransferProhibited'
-  issuer_name: 'Match the certificate Issuer Name (for "check:certificate")'
+  issuer_name:
+    description: 'Match the certificate Issuer Name (for "check:certificate")'
     required: false
-  fingerprint: 'Match the certificate SHA-256 Fingerprint (for "check:certificate")'
+  fingerprint:
+    description: 'Match the certificate SHA-256 Fingerprint (for "check:certificate")'
     required: false
-  serial_number: 'Match the certificate Serial Number (for "check:certificate")'
+  serial_number:
+    description: 'Match the certificate Serial Number (for "check:certificate")'
     required: false
 outputs:
   status:
