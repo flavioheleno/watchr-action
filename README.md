@@ -20,6 +20,10 @@ Number of days left to domain or certificate expiration that will trigger an err
 
 Match the domain Registrar Name (for `check:domain`)
 
+### status_codes
+
+List of Extensible Provisioning Protocol (EPP) status codes that should be active (CSV format) (default: `clientTransferProhibited`)
+
 ### issuer_name
 
 Match the certificate Issuer Name (for `check:certificate`)

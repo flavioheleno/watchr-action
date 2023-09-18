@@ -18,6 +18,9 @@ inputs:
     default: 5
   registrar_name: Match the domain Registrar Name (for `check:domain`)
     required: false
+  status_codes: List of Extensible Provisioning Protocol (EPP) status codes that should be active (CSV format)
+    required: false
+    default: clientTransferProhibited
   issuer_name: Match the certificate Issuer Name (for `check:certificate)
     required: false
   fingerprint: Match the certificate SHA-256 Fingerprint (for `check:certificate)
