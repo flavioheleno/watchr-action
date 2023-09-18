@@ -48,6 +48,8 @@ jobs:
           push: true
           build-args:
             "VERSION=${{ steps.tag_name.outputs.tag_name }}"
-          tags: ghcr.io/flavioheleno/watchr-action:${{ steps.tag_name.outputs.tag_name }}
+          tags: |
+            ghcr.io/flavioheleno/watchr-action:${{ steps.tag_name.outputs.tag_name }}
+            ghcr.io/flavioheleno/watchr-action:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
