@@ -60,7 +60,7 @@ elif test "${INPUT_CHECK}" == "domain"; then
   PARAM_STATUS_CODES=""
   if ! test -z "${INPUT_STATUS_CODES:-clientTransferProhibited}"; then
     IFS=','
-    for CODE in $INPUT_STATUS_CODES; do
+    for CODE in ${INPUT_STATUS_CODES:-clientTransferProhibited}; do
       PARAM_STATUS_CODES="${PARAM_STATUS_CODES} --status-codes=${CODE}"
     done;
   fi
