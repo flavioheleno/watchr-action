@@ -26,7 +26,7 @@ if test "${INPUT_CHECK}" == "certificate"; then
   fi
 
   # shellcheck disable=SC2086,SC2090
-  ./watchr \
+  watchr \
     check:certificate \
     -vvv \
     $PARAM_EXPIRATION_THRESHOLD \
@@ -67,7 +67,7 @@ elif test "${INPUT_CHECK}" == "domain"; then
 
   IFS=' '
   # shellcheck disable=SC2086,SC2090
-  ./watchr \
+  watchr \
     check:domain \
     -vvv \
     $PARAM_EXPIRATION_THRESHOLD \
