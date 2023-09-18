@@ -1,4 +1,4 @@
-name: 'watchr-monitoring'
+name: 'watchr-action: Automated Monitoring'
 description: 'Monitor your domain and certificates from GitHub Actions'
 author: 'Flavio Heleno <flaviohbatista@gmail.com>'
 
