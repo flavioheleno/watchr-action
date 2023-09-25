@@ -28,6 +28,7 @@ if test "${INPUT_CHECK}" == "certificate"; then
   # shellcheck disable=SC2086,SC2090
   watchr \
     check:certificate \
+    --no-ansi \
     -vvv \
     $PARAM_EXPIRATION_THRESHOLD \
     $PARAM_FINGERPRINT \
@@ -39,12 +40,13 @@ if test "${INPUT_CHECK}" == "certificate"; then
 
   STDOUT=$(cat certificate.log)
 
-  # shellcheck disable=SC2086
-  echo "status=${EXIT_CODE}" >> $GITHUB_OUTPUT
-  # shellcheck disable=SC2086
-  echo "stdout=${STDOUT}" >> $GITHUB_OUTPUT
-  # shellcheck disable=SC2086
-  echo "${STDOUT}" >> $GITHUB_STEP_SUMMARY
+  echo "status=${EXIT_CODE}" >> "$GITHUB_OUTPUT"
+  {
+    echo "stdout<<EOSTDOUT"
+    echo "${STDOUT}"
+    echo "EOSTDOUT"
+  } >> "$GITHUB_OUTPUT"
+  echo "${STDOUT}" >> "$GITHUB_STEP_SUMMARY"
   echo "${STDOUT}"
 elif test "${INPUT_CHECK}" == "domain"; then
   PARAM_EXPIRATION_THRESHOLD="--expiration-threshold=5"
@@ -69,6 +71,7 @@ elif test "${INPUT_CHECK}" == "domain"; then
   # shellcheck disable=SC2086,SC2090
   watchr \
     check:domain \
+    --no-ansi \
     -vvv \
     $PARAM_EXPIRATION_THRESHOLD \
     $PARAM_REGISTRAR_NAME \
@@ -79,12 +82,13 @@ elif test "${INPUT_CHECK}" == "domain"; then
 
   STDOUT=$(cat domain.log)
 
-  # shellcheck disable=SC2086
-  echo "status=${EXIT_CODE}" >> $GITHUB_OUTPUT
-  # shellcheck disable=SC2086
-  echo "stdout=${STDOUT}" >> $GITHUB_OUTPUT
-  # shellcheck disable=SC2086
-  echo "${STDOUT}" >> $GITHUB_STEP_SUMMARY
+  echo "status=${EXIT_CODE}" >> "$GITHUB_OUTPUT"
+  {
+    echo "stdout<<EOSTDOUT"
+    echo "${STDOUT}"
+    echo "EOSTDOUT"
+  } >> "$GITHUB_OUTPUT"
+  echo "${STDOUT}" >> "$GITHUB_STEP_SUMMARY"
   echo "${STDOUT}"
 else
   echo "Invalid check value \"{$INPUT_CHECK}\""
