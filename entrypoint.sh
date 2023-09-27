@@ -47,6 +47,8 @@ if test "${INPUT_CHECK}" == "certificate"; then
     echo "EOSTDOUT"
   } >> "$GITHUB_OUTPUT"
   echo "${STDOUT}" >> "$GITHUB_STEP_SUMMARY"
+
+  exit "${EXIT_CODE}"
 elif test "${INPUT_CHECK}" == "domain"; then
   PARAM_EXPIRATION_THRESHOLD="--expiration-threshold=5"
   if ! test -z "${INPUT_EXPIRATION_THRESHOLD:-}"; then
@@ -88,6 +90,8 @@ elif test "${INPUT_CHECK}" == "domain"; then
     echo "EOSTDOUT"
   } >> "$GITHUB_OUTPUT"
   echo "${STDOUT}" >> "$GITHUB_STEP_SUMMARY"
+
+  exit "${EXIT_CODE}"
 else
   echo "Invalid check value \"{$INPUT_CHECK}\""
 
