@@ -1,4 +1,4 @@
-FROM ghcr.io/flavioheleno/watchr:v0.4.0
+FROM ghcr.io/flavioheleno/watchr:v0.4.1
 
 ARG VERSION=latest
 
