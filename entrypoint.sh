@@ -86,7 +86,7 @@ elif test "${INPUT_CHECK}" == "domain"; then
 
   STDOUT=$(cat domain.log)
 
-elif test "${INPUT_CHEKC}" == "http-resp"; then
+elif test "${INPUT_CHECK}" == "http-resp"; then
 ###############################################
 # HTTP Response Check
 ###############################################
