@@ -5,6 +5,11 @@ set -o noglob
 set -o nounset
 
 if test "${INPUT_CHECK}" == "certificate"; then
+###############################################
+# Certificate Check
+###############################################
+
+  # input handling
   PARAM_EXPIRATION_THRESHOLD="--expiration-threshold=5"
   if ! test -z "${INPUT_EXPIRATION_THRESHOLD:-}"; then
     PARAM_EXPIRATION_THRESHOLD="--expiration-threshold=${INPUT_EXPIRATION_THRESHOLD}"
@@ -25,6 +30,7 @@ if test "${INPUT_CHECK}" == "certificate"; then
     PARAM_ISSUER_NAME="--issuer-name=${INPUT_ISSUER_NAME}"
   fi
 
+  # check execution
   # shellcheck disable=SC2086,SC2090
   watchr \
     check:certificate \
@@ -40,16 +46,12 @@ if test "${INPUT_CHECK}" == "certificate"; then
 
   STDOUT=$(cat certificate.log)
 
-  echo "status=${EXIT_CODE}" >> "$GITHUB_OUTPUT"
-  {
-    echo "stdout<<EOSTDOUT"
-    echo "${STDOUT}"
-    echo "EOSTDOUT"
-  } >> "$GITHUB_OUTPUT"
-  echo "${STDOUT}" >> "$GITHUB_STEP_SUMMARY"
-
-  exit "${EXIT_CODE}"
 elif test "${INPUT_CHECK}" == "domain"; then
+############################################
+# Domain Name Check
+############################################
+
+  # input handling
   PARAM_EXPIRATION_THRESHOLD="--expiration-threshold=5"
   if ! test -z "${INPUT_EXPIRATION_THRESHOLD:-}"; then
     PARAM_EXPIRATION_THRESHOLD="--expiration-threshold=${INPUT_EXPIRATION_THRESHOLD}"
@@ -68,6 +70,7 @@ elif test "${INPUT_CHECK}" == "domain"; then
     done;
   fi
 
+  # check execution
   IFS=' '
   # shellcheck disable=SC2086,SC2090
   watchr \
@@ -83,17 +86,49 @@ elif test "${INPUT_CHECK}" == "domain"; then
 
   STDOUT=$(cat domain.log)
 
-  echo "status=${EXIT_CODE}" >> "$GITHUB_OUTPUT"
-  {
-    echo "stdout<<EOSTDOUT"
-    echo "${STDOUT}"
-    echo "EOSTDOUT"
-  } >> "$GITHUB_OUTPUT"
-  echo "${STDOUT}" >> "$GITHUB_STEP_SUMMARY"
+elif test "${INPUT_CHEKC}" == "http-resp"; then
+###############################################
+# HTTP Response Check
+###############################################
 
-  exit "${EXIT_CODE}"
+  # input handling
+  PARAM_METHOD=""
+  if ! test -z "${INPUT_METHOD:-}"; then
+    PARAM_METHOD="--method=${INPUT_METHOD}"
+  fi
+
+  PARAM_STATUS_CODES=""
+  if ! test -z "${INPUT_STATUS_CODES:-}"; then
+    IFS=','
+    for CODE in ${INPUT_STATUS_CODES}; do
+      PARAM_STATUS_CODES="${PARAM_STATUS_CODES} --status-code=${CODE}"
+    done;
+  fi
+
+  # check execution
+  IFS=' '
+  # shellcheck disable=SC2086,SC2090
+  watchr \
+    check:http-resp \
+    --no-ansi \
+    -vvv \
+    $PARAM_METHOD \
+    $PARAM_STATUS_CODES \
+    -- \
+    "${INPUT_URL}" > http.log 2>&1 \
+    && EXIT_CODE=$? || EXIT_CODE=$?
 else
   echo "Invalid check value \"{$INPUT_CHECK}\""
 
   exit 1
 fi
+
+echo "status=${EXIT_CODE}" >> "$GITHUB_OUTPUT"
+{
+  echo "stdout<<EOSTDOUT"
+  echo "${STDOUT}"
+  echo "EOSTDOUT"
+} >> "$GITHUB_OUTPUT"
+echo "${STDOUT}" >> "$GITHUB_STEP_SUMMARY"
+
+exit "${EXIT_CODE}"
