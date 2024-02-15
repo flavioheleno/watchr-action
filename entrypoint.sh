@@ -117,6 +117,9 @@ elif test "${INPUT_CHECK}" == "http-resp"; then
     -- \
     "${INPUT_HTTP_TARGET_URL}" > http.log 2>&1 \
     && EXIT_CODE=$? || EXIT_CODE=$?
+
+  STDOUT=$(cat http.log)
+
 else
   echo "Invalid check value \"{$INPUT_CHECK}\""
 
