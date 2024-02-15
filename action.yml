@@ -51,4 +51,4 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/flavioheleno/watchr-action:v0.6.1'
+  image: 'docker://ghcr.io/flavioheleno/watchr-action:v0.6.2'
