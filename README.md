@@ -27,12 +27,12 @@ Name                   | Type    | Required | Description
 
 ### HTTP Response Check (`check: http-resp`)
 
-Name           | Type      | Required | Description
----------------|-----------|----------|------------
-`check`        | string    | yes      | Must be set to `http-resp`
-`url`          | string    | yes      | The URL to be checked (must be a valid URL)
-`method`       | string    | no       | The HTTP Request Method to be used
-`status_codes` | integer[] | no       | List of HTTP Status Codes that should be returned (default: `200,201,202,203,204,205,206`)
+Name                | Type      | Required | Description
+--------------------|-----------|----------|------------
+`check`             | string    | yes      | Must be set to `http-resp`
+`http_target_url`   | string    | yes      | The target URL to be checked (must be a valid URL)
+`http_method`       | string    | no       | The HTTP Request Method to be used
+`http_status_codes` | integer[] | no       | List of HTTP Status Codes that should be returned (default: `200,201,202,203,204,205,206`)
 
 ## Outputs
 
@@ -154,8 +154,8 @@ jobs:
         uses: flavioheleno/watchr-action@main
         with:
           check: http-resp
-          url: https://example.com/health
-          status_codes: 200
+          http_target_url: https://example.com/health
+          http_status_codes: 200
 
       - name: Create issue for HTTP Response check results
         if: failure()

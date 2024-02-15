@@ -93,14 +93,14 @@ elif test "${INPUT_CHEKC}" == "http-resp"; then
 
   # input handling
   PARAM_METHOD=""
-  if ! test -z "${INPUT_METHOD:-}"; then
-    PARAM_METHOD="--method=${INPUT_METHOD}"
+  if ! test -z "${INPUT_HTTP_METHOD:-}"; then
+    PARAM_METHOD="--method=${INPUT_HTTP_METHOD}"
   fi
 
   PARAM_STATUS_CODES=""
-  if ! test -z "${INPUT_STATUS_CODES:-}"; then
+  if ! test -z "${INPUT_HTTP_STATUS_CODES:-}"; then
     IFS=','
-    for CODE in ${INPUT_STATUS_CODES}; do
+    for CODE in ${INPUT_HTTP_STATUS_CODES}; do
       PARAM_STATUS_CODES="${PARAM_STATUS_CODES} --status-code=${CODE}"
     done;
   fi
@@ -115,7 +115,7 @@ elif test "${INPUT_CHEKC}" == "http-resp"; then
     $PARAM_METHOD \
     $PARAM_STATUS_CODES \
     -- \
-    "${INPUT_URL}" > http.log 2>&1 \
+    "${INPUT_HTTP_TARGET_URL}" > http.log 2>&1 \
     && EXIT_CODE=$? || EXIT_CODE=$?
 else
   echo "Invalid check value \"{$INPUT_CHECK}\""

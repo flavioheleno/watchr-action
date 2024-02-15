@@ -8,7 +8,7 @@ branding:
 
 inputs:
   check:
-    description: 'One of the available watchr checks (eg. domain, certificate)'
+    description: 'One of the available watchr checks (eg. domain, certificate, http-resp)'
     required: true
   domain:
     description: 'The domain name to be checked (root domain for "check:domain" or FQDN for "check:certificate")'
@@ -33,6 +33,16 @@ inputs:
   serial_number:
     description: 'Match the certificate Serial Number (for "check:certificate")'
     required: false
+  http_target_url:
+    description: 'The target URL to be checked'
+    required: true
+  http_method:
+    description: 'HTTP Request Method to be used'
+    required: false
+    default: 'GET'
+  http_status_codes:
+    description: 'List of HTTP Status Codes that should be returned (CSV format)'
+    default: '200,201,202,203,204,205,206'
 outputs:
   status:
     description: 'The exit code returned by watchr check'
@@ -41,4 +51,4 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/flavioheleno/watchr-action:v0.6.0'
+  image: 'docker://ghcr.io/flavioheleno/watchr-action:v0.6.1'
