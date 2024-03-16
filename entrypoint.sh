@@ -132,6 +132,6 @@ echo "status=${EXIT_CODE}" >> "$GITHUB_OUTPUT"
   echo "${STDOUT}"
   echo "EOSTDOUT"
 } >> "$GITHUB_OUTPUT"
-echo "${STDOUT}" >> "$GITHUB_STEP_SUMMARY"
+echo "```${STDOUT}```" >> "$GITHUB_STEP_SUMMARY"
 
 exit "${EXIT_CODE}"
