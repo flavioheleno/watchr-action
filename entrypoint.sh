@@ -4,7 +4,7 @@ set -o errexit
 set -o noglob
 set -o nounset
 
-if test "${INPUT_CHECK}" == "certificate"; then
+if test "${INPUT_CHECK}" = "certificate"; then
 ###############################################
 # Certificate Check
 ###############################################
@@ -46,7 +46,7 @@ if test "${INPUT_CHECK}" == "certificate"; then
 
   STDOUT=$(cat certificate.log)
 
-elif test "${INPUT_CHECK}" == "domain"; then
+elif test "${INPUT_CHECK}" = "domain"; then
 ############################################
 # Domain Name Check
 ############################################
@@ -86,7 +86,7 @@ elif test "${INPUT_CHECK}" == "domain"; then
 
   STDOUT=$(cat domain.log)
 
-elif test "${INPUT_CHECK}" == "http-resp"; then
+elif test "${INPUT_CHECK}" = "http-resp"; then
 ###############################################
 # HTTP Response Check
 ###############################################
@@ -132,6 +132,6 @@ echo "status=${EXIT_CODE}" >> "$GITHUB_OUTPUT"
   echo "${STDOUT}"
   echo "EOSTDOUT"
 } >> "$GITHUB_OUTPUT"
-echo "```${STDOUT}```" >> "$GITHUB_STEP_SUMMARY"
+echo "\`\`\`${STDOUT}\`\`\`" >> "$GITHUB_STEP_SUMMARY"
 
 exit "${EXIT_CODE}"
